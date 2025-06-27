@@ -20,7 +20,7 @@ public class MainApplication extends Application {
             System.out.println("URL do FXML encontrada: " + fxmlUrl);
 
             if (fxmlUrl == null) {
-                System.err.println("ERRO CRÍTICO: O arquivo 'Batalha.fxml' não foi encontrado.");
+                System.err.println("O arquivo 'Batalha.fxml não foi encontrado.");
                 return;
             }
             Parent root = FXMLLoader.load(fxmlUrl);
@@ -35,7 +35,6 @@ public class MainApplication extends Application {
             e.printStackTrace();
         }
     }
-
 
     public static void main(String[] args) {
         launch(args);

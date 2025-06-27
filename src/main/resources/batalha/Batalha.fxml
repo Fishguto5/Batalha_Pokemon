@@ -24,3 +24,4 @@
         <Button fx:id="btnAtacar" onAction="#handleAtacar" text="Atacar" prefWidth="150"/>
     </VBox>
 </AnchorPane>
+
