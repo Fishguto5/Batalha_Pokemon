@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import pokemon.Pokemon;
 import pokemon.Pokedex;
@@ -38,7 +39,6 @@ public class BatalhaController {
 
     private Batalha batalha;
 
-    // Este método é chamado automaticamente depois que o FXML é carregado
     @FXML
     public void initialize() {
         try {
@@ -56,7 +56,6 @@ public class BatalhaController {
 
             Collections.shuffle(pokemonsDisponiveis);
 
-            // ETAPA 3: DISTRIBUIR OS POKÉMON
             Treinador jogador = new TreinadorHumano("Ash");
             Treinador robo = new TreinadorRobo("Gary");
 
@@ -82,7 +81,6 @@ public class BatalhaController {
 
     }
 
-    // Método chamado quando o botão "Atacar" é clicado
     @FXML
     private void handleAtacar() {
         Acao acaoJogador = new Acao(TipoAcao.ATACAR);
@@ -111,8 +109,11 @@ public class BatalhaController {
 
 
     private void atualizarUI() {
+
         Pokemon pJogador = batalha.getTreinador1().getPokemonEmCampo();
         Pokemon pInimigo = batalha.getTreinador2().getPokemonEmCampo();
+        carregarImagem(imgInimigo, pInimigo);
+        carregarImagem(imgJogador, pJogador);
 
         //EU
         labelNomeJogador.setText(pJogador.getNome());
@@ -125,6 +126,23 @@ public class BatalhaController {
         labelVidaInimigo.setText(pInimigo.getVida() + " / " + pInimigo.getVidaMaxima());
         barVidaInimigo.setProgress((double) pInimigo.getVida() / pInimigo.getVidaMaxima());
 
-
     }
+    private void carregarImagem(ImageView imageView, Pokemon pokemon) {
+        String arquivo = pokemon.getNome().toLowerCase() + ".png";
+        System.out.println(arquivo + "\n");
+        try {
+            String caminho = "/pokemon_images/" + arquivo;
+            InputStream stream = this.getClass().getResourceAsStream(caminho);
+            if(stream ==  null){
+                System.err.println("Imagem não encontrada");
+            }else{
+                Image imagem = new Image(stream);
+                imageView.setImage(imagem);
+            }
+        } catch (Exception e){
+            System.err.println("Ocorreu um erro ao tentar carregar a imagem: " + arquivo);
+            e.printStackTrace();
+        }
+    }
+
 }
