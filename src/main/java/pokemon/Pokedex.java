@@ -18,7 +18,6 @@ public class Pokedex {
         return pokemons;
     }
 
-    // Carrega Pokémons da planilha
     public void carregarPokemons(InputStream inputStream) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String linha = reader.readLine();

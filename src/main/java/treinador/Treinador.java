@@ -10,17 +10,15 @@ public class Treinador {
     private String nome;
     private ArrayList<Pokemon> time;
     private Pokemon pokemonEmCampo;
-
-    public EstadoTreinador getEstadoTreinador() {
-        return estadoTreinador;
-    }
-
-    public void setEstadoTreinador(EstadoTreinador estadoTreinador) {
-        this.estadoTreinador = estadoTreinador;
-    }
-
     private EstadoTreinador estadoTreinador;
 
+    public Treinador(String nome) {
+        this.nome = nome;
+        this.time = new ArrayList<>();
+        estadoTreinador = EstadoTreinador.NEUTRO;
+    }
+
+    // getters e setters ...
     public String getNome() {
         return nome;
     }
@@ -45,6 +43,15 @@ public class Treinador {
         this.pokemonEmCampo = pokemonEmCampo;
     }
 
+    public EstadoTreinador getEstadoTreinador() {
+        return estadoTreinador;
+    }
+
+    public void setEstadoTreinador(EstadoTreinador estadoTreinador) {
+        this.estadoTreinador = estadoTreinador;
+    }
+
+
     public void escolherPokemon(Pokedex pokedex) {
     }
 
@@ -63,9 +70,13 @@ public class Treinador {
         }
     }
 
-    public Treinador(String nome) {
-        this.nome = nome;
-        this.time = new ArrayList<>();
-        estadoTreinador = EstadoTreinador.NEUTRO;
+
+    public Pokemon proximoPokemonDisponivel() {
+        for (Pokemon p : this.time) {
+            if (!p.isDerrotado()) {
+                return p;
+            }
+        }
+        return null;
     }
 }

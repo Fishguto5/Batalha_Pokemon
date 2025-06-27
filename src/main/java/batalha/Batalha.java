@@ -1,5 +1,6 @@
 package batalha;
 
+import pokemon.EstadoPokemon;
 import pokemon.Pokemon;
 import treinador.EstadoTreinador;
 import treinador.Treinador;
@@ -20,7 +21,6 @@ public class Batalha {
         this.turno = 1;
     }
 
-    // Método para preparar a batalha (chamado uma vez no início)
     public void iniciarBatalha() {
         treinador1.setPokemonEmCampo(treinador1.getTime().get(0));
         treinador2.setPokemonEmCampo(treinador2.getTime().get(0));
@@ -33,6 +33,9 @@ public class Batalha {
             logDoTurno.addAll(realizarAtaque(treinador1, treinador2));
             if (treinador2.getPokemonEmCampo().isDerrotado()) {
                 logDoTurno.add(treinador2.getPokemonEmCampo().getNome() + " foi derrotado!");
+                treinador2.getPokemonEmCampo().setEstado(EstadoPokemon.MORTO);
+                Pokemon proximoPokemon = treinador2.proximoPokemonDisponivel();
+                treinador2.setPokemonEmCampo(proximoPokemon);
                 if(treinador2.timeDerrotado(treinador2.getTime())) {
                     treinador2.setEstadoTreinador(EstadoTreinador.PERDEDOR);
                     logDoTurno.add(treinador2.getNome() + " não tem mais Pokémon!");
@@ -50,6 +53,9 @@ public class Batalha {
             logDoTurno.addAll(realizarAtaque(treinador2, treinador1));
             if (treinador1.getPokemonEmCampo().isDerrotado()) {
                 logDoTurno.add(treinador1.getPokemonEmCampo().getNome() + " foi derrotado!");
+                treinador1.getPokemonEmCampo().setEstado(EstadoPokemon.MORTO);
+                Pokemon proximoPokemon = treinador1.proximoPokemonDisponivel();
+                treinador1.setPokemonEmCampo(proximoPokemon);
                 if(treinador1.timeDerrotado(treinador1.getTime())) {
                     treinador1.setEstadoTreinador(EstadoTreinador.PERDEDOR);
                     logDoTurno.add(treinador1.getNome() + " não tem mais Pokémon!");
@@ -63,7 +69,6 @@ public class Batalha {
     }
 
 
-    // Método de ataque agora retorna uma lista de mensagens (log)
     public List<String> realizarAtaque(Treinador atacante, Treinador defensor) {
         List<String> logAtaque = new ArrayList<>();
         int dano = Math.abs((atacante.getPokemonEmCampo().getAtaque() - (int)(0.7 * defensor.getPokemonEmCampo().getDefesa())));
@@ -77,7 +82,6 @@ public class Batalha {
         return logAtaque;
     }
 
-    // Método de troca agora retorna uma mensagem e não precisa de Scanner
     public String realizarTroca(Treinador treinador, int indiceNovoPokemon) {
         if (indiceNovoPokemon >= 0 && indiceNovoPokemon < treinador.getTime().size()) {
             Pokemon novoPokemon = treinador.getTime().get(indiceNovoPokemon);

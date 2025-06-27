@@ -12,7 +12,6 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-
         try {
             System.out.println("Iniciando o carregamento do FXML...");
 
@@ -21,21 +20,18 @@ public class MainApplication extends Application {
             System.out.println("URL do FXML encontrada: " + fxmlUrl);
 
             if (fxmlUrl == null) {
-                System.err.println("ERRO CRÍTICO: O arquivo 'Batalha.fxml' não foi encontrado no classpath. Verifique se ele está em 'src/main/resources/batalha/'.");
+                System.err.println("ERRO CRÍTICO: O arquivo 'Batalha.fxml' não foi encontrado.");
                 return;
             }
-
             Parent root = FXMLLoader.load(fxmlUrl);
-            System.out.println("FXML carregado com sucesso.");
 
             stage.setTitle("Batalha Pokémon");
-            stage.setScene(new Scene(root, 800, 600));
+            stage.setScene(new Scene(root, 1000, 800));
             stage.show();
             System.out.println("Deu certo!");
 
         } catch (Exception e) {
             System.err.println("<<<<< ERRO NA APLIACAO >>>>>");
-
             e.printStackTrace();
         }
     }
