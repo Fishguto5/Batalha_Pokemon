@@ -5,6 +5,7 @@ public class Pokemon {
     private String nome;
     private TipoPokemon tipo;
     private int vida;
+    private int vidaMaxima;
     private int ataque;
     private int defesa;
     private int velocidade;
@@ -66,6 +67,14 @@ public class Pokemon {
         this.estado = estado;
     }
 
+    public int getVidaMaxima() {
+        return vidaMaxima;
+    }
+
+    public void setVidaMaxima(int vidaMaxima) {
+        this.vidaMaxima = vidaMaxima;
+    }
+
     // Construtor
     public Pokemon(String nome, TipoPokemon tipo, int vida, int ataque, int defesa, int velocidade) {
         this.nome = nome;
@@ -75,6 +84,7 @@ public class Pokemon {
         this.defesa = defesa;
         this.velocidade = velocidade;
         estado = EstadoPokemon.VIVO;
+        this.vidaMaxima = vida;
     }
 
     public Pokemon(Pokemon outro) {
@@ -84,10 +94,7 @@ public class Pokemon {
         this.ataque = outro.ataque;
         this.defesa = outro.defesa;
         this.velocidade = outro.velocidade;
-    }
-
-    public String usarHabilidade() {
-        return nome + " usou " + tipo.getHabilidadePadrao() + "!";
+        this.vidaMaxima = vida;
     }
 
     public void receberDano(int dano) {

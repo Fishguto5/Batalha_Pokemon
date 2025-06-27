@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
-  <artifactId>projeto_mc322_novo</artifactId>
+  <artifactId>batalha_pokemon</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>Archetype - projeto_mc322_novo</name>
+  <name>Archetype - Batalha de Pokemon</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -47,7 +47,7 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <version>${javafx.maven.plugin.version}</version>
         <configuration>
-          <mainClass>ui.MainApplication</mainClass>
+          <mainClass>ui.Launcher</mainClass>
         </configuration>
         <executions>
           <execution>

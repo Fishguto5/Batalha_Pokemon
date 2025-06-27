@@ -37,7 +37,7 @@ public class Main {
 
         // Início da batalha
         Batalha batalha = new Batalha(humano, robo);
-        batalha.iniciar();
+        batalha.iniciarBatalha();
 
         scanner.close();
     }

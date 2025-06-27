@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BatalhaController">
+    <VBox layoutX="500" layoutY="50" spacing="5">
+        <Label fx:id="labelNomeInimigo" text="Nome Inimigo"/>
+        <ProgressBar fx:id="barVidaInimigo" progress="1.0" prefWidth="200"/>
+        <Label fx:id="labelVidaInimigo" text="100/100"/>
+    </VBox>
+    <ImageView fx:id="imgInimigo" fitHeight="150" fitWidth="150" layoutX="520" layoutY="120" />
+
+    <VBox layoutX="100" layoutY="300" spacing="5">
+        <Label fx:id="labelNomeJogador" text="Nome Jogador"/>
+        <ProgressBar fx:id="barVidaJogador" progress="1.0" prefWidth="200"/>
+        <Label fx:id="labelVidaJogador" text="120/120"/>
+    </VBox>
+    <ImageView fx:id="imgJogador" fitHeight="150" fitWidth="150" layoutX="120" layoutY="370" />
+
+    <VBox alignment="CENTER" layoutX="50.0" layoutY="500.0" spacing="10" prefWidth="700">
+        <TextArea fx:id="logBatalha" editable="false" prefHeight="80" />
+        <Button fx:id="btnAtacar" onAction="#handleAtacar" text="Atacar" prefWidth="150"/>
+    </VBox>
+</AnchorPane>
