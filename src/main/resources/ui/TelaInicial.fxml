@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.TelaInicialController"
+      alignment="CENTER" spacing="50" styleClass="tela-inicial-pane">
+    <ImageView fitHeight="150" fitWidth="400" preserveRatio="true">
+        <image>
+            <Image url="@/LogoPokemon/img.png"/>
+        </image>
+    </ImageView>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    <Label text="Batalha de Pókemon" fx:id="titleLabel"/>
+    <Button text="Iniciar Batalha" onAction="#iniciarBatalha" fx:id="startButton"/>
+</VBox>

@@ -1,0 +1,32 @@
+
+.tela-inicial-pane {
+    -fx-background-color: linear-gradient(to right, #3B4CCA, red);
+    -fx-border-width: 10;
+}
+
+
+#titleLabel {
+    -fx-font-size: 56px;
+    -fx-font-family: "JetBrains Mono", sans-serif;
+    -fx-text-fill: black;
+}
+
+#startButton {
+    -fx-font-size: 24px;
+    -fx-background-color: yellow;
+    filter: saturate(50%);
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-border-width: 3;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+#startButton:hover {
+    -fx-background-color: #E53935;
+}
+
+#form{
+    -fx-border-radius: 10px;
+    -fx-background-color: #c28282;
+}
