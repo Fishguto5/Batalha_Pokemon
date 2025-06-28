@@ -11,7 +11,7 @@
       xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="controller.TelaCadastroController">
     <children>
-        <Label style="-fx-font-size: 24px; -fx-text-fill: #3B4CCA; -fx-font-weight: bold;" text="Qual é o seu nome, Treinador?"/>
+        <Label style="-fx-font-size: 24px; -fx-text-fill: black; -fx-font-weight: bold;" text="Qual é o seu nome, Treinador?"/>
 
         <TextField fx:id="nomeInput" maxWidth="300.0" promptText="Digite seu nome aqui"/>
 
