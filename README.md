@@ -37,7 +37,7 @@ Para compilar e executar este projeto, é necessário ter o seguinte software in
    * **No Windows (usando PowerShell ou CMD):**
 
        ```bash
-       mvnw.cmd clean javafx:run
+       .\mvnw.cmd clean javafx:run
        ```
 
    * **No Linux ou macOS:**
