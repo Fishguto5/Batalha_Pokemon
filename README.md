@@ -1,17 +1,44 @@
-# Batalha de Pokemon - Projeto Final MC322 (Programação Orientade a Objetos)
-Membros:
-Gustavo Fernandes de Carvalho - RA: 205854
-XXXXXXXXXXXXXXXXXXXXXXXXX - RA: ZZZZZZ
-XXXXXXXXXXXXXXXXXXXXXXXXX - RA: ZZZZZZ
-XXXXXXXXXXXXXXXXXXXXXXXXX - RA: ZZZZZZ
+````markdown
+# Batalha Pokémon - Projeto Final MC322
 
-# Sobre o projeto:
-- O Projeto é simula uma batalha de Pokémons, no qual você pode batalhar contra um Treinador Robô e testar suas habilidades de um mestre Pokémon
-- Esse projeto foi desenvolvido usando Java 21.0.7, JavaFX para a interface gráfica e Maven como gerenciador de dependências e build do projeto, ou seja, é necessário ter essa ferramente instalada em seu computador para rodar o projeto
+Este projeto é uma simulação de uma batalha de Pokémon, desenvolvido como parte da disciplina de Programação Orientada a Objetos (MC322).
 
-# Orientações para execução
-1. Ter o Apache Maven instalado (versão recomenda: 3.0.0 ou superior)
-2. Execute o seguinte comando Maven para compilar e rodar a aplicação:
-    ```bash
-    mvn clean javafx:run
-    ```
+### Membros
+* Gustavo Fernandes de Carvalho - RA: 205854
+* XXXXXXXXXXXXXXXXXXXXXXXXX - RA: ZZZZZZ
+* XXXXXXXXXXXXXXXXXXXXXXXXX - RA: ZZZZZZ
+* XXXXXXXXXXXXXXXXXXXXXXXXX - RA: ZZZZZZ
+
+---
+
+## Sobre o Projeto
+
+O jogo simula uma batalha de Pokémons, na qual você pode batalhar contra um Treinador Robô e testar suas habilidades como Mestre Pokémon.
+
+O projeto foi desenvolvido utilizando:
+* **Java 21**
+* **JavaFX** para a interface gráfica
+* **Apache Maven** como gerenciador de dependências e build.
+
+---
+
+## Orientações para Execução
+
+### Pré-requisitos
+
+Para compilar e executar este projeto, é necessário ter o seguinte software instalado:
+1.  **JDK (Java Development Kit) 21 ou superior.**
+2.  **Git** para clonar o repositório.
+
+**Aviso:** Não é necessário ter o Maven instalado globalmente, pois o projeto utiliza o **Maven Wrapper (`mvnw`)**, que garante que a versão correta do Maven seja usada para a compilação.
+
+### Como Executar
+
+
+
+1.  Execute o projeto usando o script do Maven Wrapper apropriado para o seu sistema operacional.
+
+    * **No Windows (usando PowerShell ou CMD):**
+        ```bash
+        mvn clean javafx:run
+        ```
