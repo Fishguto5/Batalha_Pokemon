@@ -10,6 +10,8 @@ XXXXXXXXXXXXXXXXXXXXXXXXX - RA: ZZZZZZ
 - Esse projeto foi desenvolvido usando Java 21.0.7, JavaFX para a interface gráfica e Maven como gerenciador de dependências e build do projeto, ou seja, é necessário ter essa ferramente instalada em seu computador para rodar o projeto
 
 # Orientações para execução
-#+begin_src shell
-mvn javafx:run
-#+end_src
+1. Ter o Apache Maven instalado (versão recomenda: 3.0.0 ou superior)
+2. Execute o seguinte comando Maven para compilar e rodar a aplicação:
+    ```bash
+    mvn clean javafx:run
+    ```
