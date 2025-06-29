@@ -9,13 +9,15 @@ import java.net.URL;
 
 public class MainApplication extends Application {
     public static String nome_jogador;
+    public static int altura_tela = 1280;
+    public static int largura_tela = 720;
     @Override
     public void start(Stage stage) {
         try {
             URL fxmlUrl = getClass().getResource("/ui/TelaInicial.fxml");
             Parent root = FXMLLoader.load(fxmlUrl);
 
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root,MainApplication.altura_tela,MainApplication.largura_tela);
 
             URL cssUrl = getClass().getResource("/ui/style.css");
             if (cssUrl != null) {

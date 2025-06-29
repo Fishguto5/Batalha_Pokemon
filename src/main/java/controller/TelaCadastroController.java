@@ -23,12 +23,12 @@ public class TelaCadastroController {
     @FXML
     private void confirmarNome(ActionEvent event) throws IOException {
         String nome = nomeInput.getText();
-
+        //Aplicar Exception
         if (nome == null || nome.trim().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Nome Inválido");
             alert.setHeaderText(null);
-            alert.setContentText("Por favor, digite um nome para o treinador!");
+            alert.setContentText("Por favor, digite seu nome!");
             alert.showAndWait();
             return;
         }
@@ -36,18 +36,9 @@ public class TelaCadastroController {
         MainApplication.nome_jogador = nome;
         System.out.println("Nome do treinador definido como: " + MainApplication.nome_jogador);
 
-        URL fxmlUrl = getClass().getResource("/batalha/Batalha.fxml");
-        Parent batalhaRoot = FXMLLoader.load(fxmlUrl);
-        Scene batalhaScene = new Scene(batalhaRoot);
-
+        Parent rotaBatalha = FXMLLoader.load(getClass().getResource("/batalha/Batalha.fxml"));
+        Scene sceneBatalha = new Scene(rotaBatalha);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        URL cssUrl = getClass().getResource("/ui/style.css");
-        if(cssUrl != null) {
-            batalhaScene.getStylesheets().add(cssUrl.toExternalForm());
-        }
-
-        stage.setScene(batalhaScene);
-        stage.centerOnScreen();
+        stage.setScene(sceneBatalha);
     }
 }

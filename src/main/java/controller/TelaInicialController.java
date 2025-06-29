@@ -17,23 +17,10 @@ public class TelaInicialController {
     private void iniciarBatalha(ActionEvent event) throws IOException {
         System.out.println("Botão Iniciar Batalha clicado! Carregando a cena de batalha...");
 
-        URL fxmlUrl = getClass().getResource("/cadastro/TelaCadastro.fxml");
-        if (fxmlUrl == null) {
-            System.err.println("O arquivo 'Batalha.fxml' não foi encontrado.");
-            return;
-        }
-        Parent batalhaRoot = FXMLLoader.load(fxmlUrl);
-        Scene batalhaScene = new Scene(batalhaRoot);
-
+        Parent rotaCadastro = FXMLLoader.load(getClass().getResource("/cadastro/TelaCadastro.fxml"));
+        Scene sceneCadastro = new Scene(rotaCadastro);
+        sceneCadastro.getStylesheets().add(getClass().getResource("/ui/style.css").toExternalForm());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        URL cssUrl = getClass().getResource("/ui/style.css");
-        if (cssUrl != null) {
-            batalhaScene.getStylesheets().add(cssUrl.toExternalForm());
-        }
-
-        stage.setScene(batalhaScene);
-        stage.centerOnScreen();
-        stage.show();
+        stage.setScene(sceneCadastro);
     }
 }
