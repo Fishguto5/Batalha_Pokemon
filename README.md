@@ -15,7 +15,7 @@ Este projeto é uma simulação de uma batalha de Pokémon, desenvolvido como pa
 O jogo simula uma batalha de Pokémons, na qual você pode batalhar contra um Treinador Robô e testar suas habilidades como Mestre Pokémon.
 
 O projeto foi desenvolvido utilizando:
-* **Java 21**
+* **Java 21.0.7**
 * **JavaFX** para a interface gráfica
 * **Apache Maven** como gerenciador de dependências e build.
 
@@ -26,25 +26,23 @@ O projeto foi desenvolvido utilizando:
 ### Pré-requisitos
 
 Para compilar e executar este projeto, é necessário ter o seguinte software instalado:
-1.  **JDK (Java Development Kit) 21 ou superior.**
-2.  **Git** para clonar o repositório.
+1.  **JDK (Java Development Kit) 21**
 
-**Aviso:** Não é necessário ter o Maven instalado globalmente, pois o projeto utiliza o **Maven Wrapper (`mvnw`)**, que garante que a versão correta do Maven seja usada para a compilação.
+**Aviso:** Não é necessário ter o Maven instalado globalmente, pois o projeto utiliza o **Maven Wrapper (`mvnw`)**
 
 ### Como Executar
 
-
 1. Execute o projeto usando o script do Maven Wrapper apropriado para o seu sistema operacional.
 
-    * **No Windows (usando PowerShell ou CMD):**
+   * **No Windows (usando PowerShell ou CMD):**
 
-        ```bash
-        mvnw.cmd clean javafx:run
-        ```
+       ```bash
+       mvnw.cmd clean javafx:run
+       ```
 
-    * **No Linux ou macOS:**
+   * **No Linux ou macOS:**
 
-        ```bash
-        ./mvnw clean javafx:run
-        ```
+       ```bash
+       ./mvnw clean javafx:run
+       ```
 
