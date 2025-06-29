@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import logs.LogBatalha;
 import pokemon.Pokemon;
 import pokemon.Pokedex;
 import treinador.Treinador;
@@ -22,6 +23,7 @@ import treinador.TreinadorHumano;
 import treinador.TreinadorRobo;
 import ui.MainApplication;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,43 +54,43 @@ public class BatalhaController {
     private List<Button> botoesDeTroca;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         botoesDeTroca = List.of(btnTrocar1, btnTrocar2, btnTrocar3);
         boxFimDeJogo.setVisible(false);
         boxFimDeJogo.setManaged(false);
         try {
             reiniciarBatalhaLogica();
-            logBatalha.appendText("A batalha começou!\n");
+            adicionarLog("A batalha começou!");
             atualizarUI();
             gerenciarBotoesDeAcao(false);
         } catch (Exception e) {
-            logBatalha.setText("Ocorreu um erro fatal na inicialização: " + e.getMessage());
+            adicionarLog("Ocorreu um erro fatal na inicialização: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     @FXML
-    private void handleAtacar() {
+    private void handleAtacar() throws IOException {
         processarAcaoDoJogador(new Acao(TipoAcao.ATACAR));
     }
 
     @FXML
-    private void handleTrocarParaPokemon1() {
+    private void handleTrocarParaPokemon1() throws IOException {
         processarTroca(0);
     }
 
     @FXML
-    private void handleTrocarParaPokemon2() {
+    private void handleTrocarParaPokemon2() throws IOException {
         processarTroca(1);
     }
 
     @FXML
-    private void handleTrocarParaPokemon3() {
+    private void handleTrocarParaPokemon3() throws IOException {
         processarTroca(2);
     }
 
     @FXML
-    private void jogarNovamente(ActionEvent event) {
+    private void jogarNovamente(ActionEvent event) throws IOException {
         btnJogarNovamente.setDisable(true);
         btnFecharJogo.setDisable(true);
         boxFimDeJogo.setVisible(false);
@@ -98,11 +100,11 @@ public class BatalhaController {
         try {
             logBatalha.clear();
             reiniciarBatalhaLogica();
-            logBatalha.appendText("Uma nova batalha começou!\n");
+            adicionarLog("Uma nova batalha começou!");
             atualizarUI();
             gerenciarBotoesDeAcao(false);
         } catch (Exception e) {
-            logBatalha.setText("Erro ao reiniciar: " + e.getMessage());
+            adicionarLog("Erro ao reiniciar a batalha: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -112,9 +114,9 @@ public class BatalhaController {
         Platform.exit();
     }
 
-    private void processarTroca(int indicePokemon) {
+    private void processarTroca(int indicePokemon) throws IOException {
         if (batalha.getEstado() == EstadoBatalha.AGUARDANDO_TROCA_JOGADOR) {
-            batalha.trocarPokemonDerrotado(indicePokemon).forEach(linha -> logBatalha.appendText(linha + "\n"));
+            batalha.trocarPokemonDerrotado(indicePokemon).forEach(this::adicionarLog);
             atualizarUI();
             gerenciarBotoesDeAcao(false);
         } else {
@@ -122,13 +124,13 @@ public class BatalhaController {
         }
     }
 
-    private void processarAcaoDoJogador(Acao acaoJogador) {
+    private void processarAcaoDoJogador(Acao acaoJogador) throws IOException {
         gerenciarBotoesDeAcao(true);
-        batalha.executarAcaoJogador(acaoJogador).forEach(linha -> logBatalha.appendText(linha + "\n"));
+        batalha.executarAcaoJogador(acaoJogador).forEach(this::adicionarLog);
         atualizarUI();
 
         if (batalha.getEstado() == EstadoBatalha.FIM_DE_JOGO) {
-            logBatalha.appendText("FIM DE JOGO!\n");
+            adicionarLog("FIM DE JOGO!");
             ativarOpcoesFimDeJogo();
         } else {
             gerenciarBotoesDeAcao(false);
@@ -238,5 +240,11 @@ public class BatalhaController {
 
         this.batalha = new Batalha(jogador, robo);
         this.batalha.iniciarBatalha();
+    }
+
+    private void adicionarLog(String mensagem) {
+        if(mensagem == null) return;
+        logBatalha.appendText(mensagem + "\n");
+        LogBatalha.registrar(mensagem);
     }
 }

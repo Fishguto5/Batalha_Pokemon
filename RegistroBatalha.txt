@@ -1,0 +1,48 @@
+Batalha começou
+Uma nova batalha começou!
+
+Uma nova batalha começou!
+
+FIM DE JOGO!
+
+A batalha começou!
+Sandshrew usou Terremoto!
+Ekans sofreu 45 de dano.
+Ekans foi derrotado!
+Gary enviou Hitmonlee!
+Hitmonlee usou Rajada de Socos!
+Sandshrew sofreu 61 de dano.
+Sandshrew foi derrotado!
+Você precisa escolher seu próximo Pokémon!
+Gustavo enviou Nidoking!
+Nidoking usou Miasma Tóxico!
+Hitmonlee sofreu 65 de dano.
+Hitmonlee foi derrotado!
+Gary enviou Pidgey!
+Pidgey usou Corte Aéreo!
+Nidoking sofreu 8 de dano.
+Nidoking usou Miasma Tóxico!
+Pidgey sofreu 74 de dano.
+Pidgey foi derrotado!
+Gary não tem mais Pokémon!
+Gustavo venceu a batalha!
+FIM DE JOGO!
+A batalha começou!
+Hitmonlee usou Rajada de Socos!
+Magnemite sofreu 71 de dano.
+Magnemite foi derrotado!
+Gary enviou Electrode!
+Electrode usou Raio Trovejante!
+Hitmonlee sofreu 13 de dano.
+Hitmonlee usou Rajada de Socos!
+Electrode sofreu 71 de dano.
+Electrode foi derrotado!
+Gary enviou Metapod!
+Metapod usou Ferroada Selvagem!
+Hitmonlee sofreu 17 de dano.
+Hitmonlee usou Rajada de Socos!
+Metapod sofreu 82 de dano.
+Metapod foi derrotado!
+Gary não tem mais Pokémon!
+Gustavo venceu a batalha!
+FIM DE JOGO!
