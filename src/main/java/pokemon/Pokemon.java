@@ -1,6 +1,6 @@
 package pokemon;
 
-public class Pokemon {
+public class Pokemon implements Efetividade {
 
     private String nome;
     private TipoPokemon tipo;
