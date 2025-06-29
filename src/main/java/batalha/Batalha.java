@@ -4,6 +4,7 @@ import pokemon.Pokemon;
 import pokemon.TipoPokemon;
 import treinador.EstadoTreinador;
 import treinador.Treinador;
+import treinador.TreinadorHumano;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class Batalha {
                 logDaAcao.add(atacante.getNome() + " venceu a batalha!");
             } else {
                 // Se o Pokémon derrotado é do JOGADOR
-                if (defensor == treinador1) {
+                if (defensor instanceof TreinadorHumano) {
                     this.estado = EstadoBatalha.AGUARDANDO_TROCA_JOGADOR; // >>> PONTO CRÍTICO <<<
                     logDaAcao.add("Você precisa escolher seu próximo Pokémon!");
                 } else { // Se o derrotado é do ROBÔ
