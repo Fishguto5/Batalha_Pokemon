@@ -1,6 +1,8 @@
 package pokemon;
 
-public class Pokemon implements Efetividade {
+import java.util.ArrayList;
+
+public class Pokemon  {
 
     private String nome;
     private TipoPokemon tipo;
@@ -10,6 +12,7 @@ public class Pokemon implements Efetividade {
     private int defesa;
     private int velocidade;
     private EstadoPokemon estado;
+
 
     public String getNome() {
         return nome;

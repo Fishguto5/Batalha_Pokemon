@@ -1,13 +1,12 @@
 package batalha;
 
-import pokemon.EstadoPokemon;
 import pokemon.Pokemon;
+import pokemon.TipoPokemon;
 import treinador.EstadoTreinador;
 import treinador.Treinador;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Batalha {
 
@@ -58,7 +57,6 @@ public class Batalha {
             logDaAcao.add(msgTroca);
         }
 
-        // --- VERIFICAÇÃO PÓS-AÇÃO ---
         if (defensor.getPokemonEmCampo().isDerrotado()) {
             logDaAcao.add(defensor.getPokemonEmCampo().getNome() + " foi derrotado!");
             if (defensor.timeDerrotado(defensor.getTime())) {
@@ -84,7 +82,6 @@ public class Batalha {
     public List<String> executarAcaoJogador(Acao acaoJogador) {
         List<String> logDoTurno = new ArrayList<>();
 
-        // Se o jogador atacar ou fizer uma troca VOLUNTÁRIA
         if (acaoJogador.getTipo() == TipoAcao.ATACAR || acaoJogador.getTipo() == TipoAcao.TROCAR) {
             logDoTurno.addAll(processarAcao(treinador1, treinador2, acaoJogador));
         }
@@ -119,10 +116,8 @@ public class Batalha {
         Treinador segundo = treinador2;
         Acao acaoSegundo = acaoTreinador2;
 
-        // --- TURNO DO PRIMEIRO JOGADOR (HUMANO) ---
         logDoTurno.addAll(processarAcao(primeiro, segundo, acaoPrimeiro));
 
-        // Se o segundo jogador foi derrotado após a ação do primeiro, o turno acaba.
         if (segundo.getEstadoTreinador() == EstadoTreinador.PERDEDOR) {
             turno++;
             return logDoTurno;
@@ -138,15 +133,33 @@ public class Batalha {
 
 
 
-    public List<String> realizarAtaque(Treinador atacante, Treinador defensor) {
-        List<String> logAtaque = new ArrayList<>();
-        int dano = Math.abs((atacante.getPokemonEmCampo().getAtaque() - (int)(0.7 * defensor.getPokemonEmCampo().getDefesa())));
-        if (dano <= 0) dano = 1; // Garante dano mínimo
+    public ArrayList<String> realizarAtaque(Treinador atacante, Treinador defensor) {
+        ArrayList<String> logAtaque = new ArrayList<>();
+        Pokemon pAtacante = atacante.getPokemonEmCampo();
+        Pokemon pDefensor = defensor.getPokemonEmCampo();
 
-        defensor.getPokemonEmCampo().setVida(Math.max(0, defensor.getPokemonEmCampo().getVida() - dano));
+        if (pAtacante.isDerrotado()) return logAtaque;
 
-        logAtaque.add(atacante.getPokemonEmCampo().getNome() + " usou " + atacante.getPokemonEmCampo().getTipo().getHabilidadePadrao() );
-        logAtaque.add(defensor.getPokemonEmCampo().getNome() + " sofreu " + dano + " de dano.");
+        TipoPokemon tipoDoAtaque = pAtacante.getTipo();
+
+        TipoPokemon tipoDoDefensor = pDefensor.getTipo();
+
+        double multiplicador = tipoDoAtaque.getEfetividadeContra(tipoDoDefensor);
+
+        int danoBase = Math.abs((pAtacante.getAtaque() - (int) (0.7 * pDefensor.getDefesa())));
+        if (danoBase <= 0) danoBase = 1;
+
+        int danoFinal = (int) (danoBase * multiplicador);
+        pDefensor.setVida(Math.max(0, pDefensor.getVida() - danoFinal));
+
+        String nomeHabilidade = tipoDoAtaque.getHabilidadePadrao();
+        logAtaque.add(pAtacante.getNome() + " usou " + nomeHabilidade + "!");
+
+        if (multiplicador > 1.0) logAtaque.add("Ataque do " + atacante.getPokemonEmCampo().getNome() + " é super efetivo!");
+        else if (multiplicador < 1.0 && multiplicador > 0.0) logAtaque.add(" Ataque do " + atacante.getPokemonEmCampo().getNome() + " não é muito efetivo");
+        else if (multiplicador == 0.0) logAtaque.add("Ataque " + atacante.getPokemonEmCampo().getNome() + " não foi efetivo");
+
+        logAtaque.add(pDefensor.getNome() + " sofreu " + danoFinal + " de dano.");
 
         return logAtaque;
     }

@@ -68,7 +68,7 @@ public class BatalhaController {
             InputStream inputStream = Pokedex.class.getResourceAsStream("/ListaPokemons.csv");
             pokedex.carregarPokemons(inputStream);
 
-            List<Pokemon> pokemonsDisponiveis = new ArrayList<>(pokedex.getPokemons());
+            ArrayList<Pokemon> pokemonsDisponiveis = new ArrayList<>(pokedex.getPokemons());
 
             final int TAMANHO_DO_TIME = 3;
             if (pokemonsDisponiveis.size() < TAMANHO_DO_TIME * 2) {
