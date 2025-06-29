@@ -5,7 +5,7 @@ import pokemon.Pokemon;
 
 import java.util.ArrayList;
 
-public class Treinador {
+public abstract class Treinador {
 
     private String nome;
     private ArrayList<Pokemon> time;
@@ -18,7 +18,6 @@ public class Treinador {
         estadoTreinador = EstadoTreinador.NEUTRO;
     }
 
-    // getters e setters ...
     public String getNome() {
         return nome;
     }

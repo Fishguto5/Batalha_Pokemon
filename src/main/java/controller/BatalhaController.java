@@ -2,6 +2,7 @@ package controller;
 
 import batalha.Acao;
 import batalha.Batalha;
+import batalha.EstadoBatalha;
 import batalha.TipoAcao;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +11,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import pokemon.Pokemon;
 import pokemon.Pokedex;
 import treinador.EstadoTreinador;
@@ -37,8 +39,27 @@ public class BatalhaController {
 
     @FXML private TextArea logBatalha;
     @FXML private Button btnAtacar;
+    @FXML private Button btnTrocar1;
+    @FXML private Button btnTrocar2;
+    @FXML private Button btnTrocar3;
 
     private Batalha batalha;
+    private List<Button> botoesDeTroca;
+
+    @FXML
+    private void handleTrocarParaPokemon1() {
+        processarTroca(0);
+    }
+
+    @FXML
+    private void handleTrocarParaPokemon2() {
+        processarTroca(1);
+    }
+
+    @FXML
+    private void handleTrocarParaPokemon3() {
+        processarTroca(2);
+    }
 
     @FXML
     public void initialize() {
@@ -51,7 +72,7 @@ public class BatalhaController {
 
             final int TAMANHO_DO_TIME = 3;
             if (pokemonsDisponiveis.size() < TAMANHO_DO_TIME * 2) {
-                logBatalha.setText("Erro: O arquivo CSV não contém Pokémon suficientes para dois times de " + TAMANHO_DO_TIME + ".");
+                logBatalha.setText("Sem pokemons suficientes na planilha para batalha" );
                 return;
             }
 
@@ -68,11 +89,11 @@ public class BatalhaController {
                 robo.getTime().add(pokemonsDisponiveis.remove(0));
             }
 
-            // O restante do código para iniciar a batalha
             this.batalha = new Batalha(jogador, robo);
             this.batalha.iniciarBatalha();
 
             logBatalha.appendText("A batalha começou!\n");
+            botoesDeTroca = List.of(btnTrocar1, btnTrocar2, btnTrocar3);
             atualizarUI();
 
         } catch (Exception e) {
@@ -82,43 +103,79 @@ public class BatalhaController {
 
     }
 
-    @FXML
-    private void handleAtacar() {
-        // 1. Desabilita o botão para prevenir múltiplos cliques durante o turno.
-        btnAtacar.setDisable(true);
+    private void gerenciarBotoesDeAcao(boolean desabilitar) {
+        if (desabilitar) {
+            btnAtacar.setDisable(true);
+            botoesDeTroca.forEach(btn -> btn.setDisable(true));
+        } else {
 
-        // --- AQUI ESTÁ A DEFINIÇÃO QUE FALTAVA ---
-        // Criamos as ações para cada treinador. Neste momento, ambos sempre escolhem atacar.
-        // Estas variáveis são locais e existem apenas dentro deste método.
-        Acao acaoJogador = new Acao(TipoAcao.ATACAR);
+            EstadoBatalha estadoAtual = batalha.getEstado();
+
+            if (estadoAtual == EstadoBatalha.FIM_DE_JOGO) {
+                btnAtacar.setDisable(true);
+                botoesDeTroca.forEach(btn -> btn.setDisable(true));
+            } else if (estadoAtual == EstadoBatalha.AGUARDANDO_TROCA_JOGADOR) {
+                btnAtacar.setDisable(true); // Não pode atacar, deve trocar
+                atualizarUI();
+            } else {
+                btnAtacar.setDisable(false);
+                atualizarUI();
+            }
+        }
+    }
+
+    private void executarAcaoDoJogador(Acao acaoJogador) {
+        gerenciarBotoesDeAcao(true);
+
         Acao acaoRobo = new Acao(TipoAcao.ATACAR);
-        // --- FIM DA DEFINIÇÃO ---
 
-        // 2. Executa toda a lógica do turno na sua classe Batalha, passando as ações.
         List<String> logDoTurno = batalha.executarTurno(acaoJogador, acaoRobo);
 
-        // 3. Mostra o resultado do turno no log da tela.
         for (String linha : logDoTurno) {
             logBatalha.appendText(linha + "\n");
         }
 
-        // 4. ATUALIZA A INTERFACE GRÁFICA.
-        // Isto irá garantir que a barra de vida do Pokémon derrotado seja zerada visualmente.
         atualizarUI();
 
-        // 5. AGORA, VERIFICA O ESTADO FINAL DA BATALHA.
-        // Esta verificação acontece DEPOIS da UI ter sido atualizada.
         if (batalha.getTreinador1().getEstadoTreinador() == EstadoTreinador.PERDEDOR ||
                 batalha.getTreinador2().getEstadoTreinador() == EstadoTreinador.PERDEDOR) {
-
-            // Se a batalha terminou, apenas adiciona a mensagem final.
-            // O botão já está desabilitado e não será reativado.
             logBatalha.appendText("FIM DE JOGO!\n");
-
         } else {
-            // Se a batalha NÃO terminou, reabilita o botão para o próximo turno.
-            btnAtacar.setDisable(false);
+            gerenciarBotoesDeAcao(false);
         }
+    }
+
+    private void processarTroca(int indicePokemon) {
+        List<String> logDaAcao;
+
+        if (batalha.getEstado() == EstadoBatalha.AGUARDANDO_TROCA_JOGADOR) {
+            logDaAcao = batalha.trocarPokemonDerrotado(indicePokemon);
+            logDaAcao.forEach(linha -> logBatalha.appendText(linha + "\n"));
+            atualizarUI();
+            gerenciarBotoesDeAcao(false);
+        } else {
+            Acao acaoJogador = new Acao(TipoAcao.TROCAR, indicePokemon);
+            executarTurnoCompleto(acaoJogador);
+        }
+    }
+
+    @FXML
+    private void handleAtacar() {
+        Acao acaoJogador = new Acao(TipoAcao.ATACAR);
+        executarAcaoDoJogador(acaoJogador);
+    }
+
+    private void executarTurnoCompleto(Acao acaoJogador) {
+        gerenciarBotoesDeAcao(true); // Desabilita tudo
+
+        // Chama o método da Batalha que processa a ação do jogador e a resposta do robô
+        List<String> logDoTurno = batalha.executarAcaoJogador(acaoJogador);
+
+        logDoTurno.forEach(linha -> logBatalha.appendText(linha + "\n"));
+
+        atualizarUI();
+
+        gerenciarBotoesDeAcao(false);
     }
 
 
@@ -126,20 +183,31 @@ public class BatalhaController {
         Pokemon pJogador = batalha.getTreinador1().getPokemonEmCampo();
         Pokemon pInimigo = batalha.getTreinador2().getPokemonEmCampo();
 
-        // Atualiza a UI do Jogador, mas SÓ SE o Pokémon não for nulo.
         if (pJogador != null) {
             labelNomeJogador.setText(pJogador.getNome());
             labelVidaJogador.setText(pJogador.getVida() + " / " + pJogador.getVidaMaxima());
             barVidaJogador.setProgress((double) pJogador.getVida() / pJogador.getVidaMaxima());
             carregarImagem(imgJogador, pJogador);
         }
-
-        // Atualiza a UI do Inimigo, mas SÓ SE o Pokémon não for nulo.
         if (pInimigo != null) {
             labelNomeInimigo.setText(pInimigo.getNome());
             labelVidaInimigo.setText(pInimigo.getVida() + " / " + pInimigo.getVidaMaxima());
             barVidaInimigo.setProgress((double) pInimigo.getVida() / pInimigo.getVidaMaxima());
             carregarImagem(imgInimigo, pInimigo);
+        }
+        Treinador jogador = batalha.getTreinador1();
+        for (int i = 0; i < botoesDeTroca.size(); i++) {
+            if (i < jogador.getTime().size()) {
+                Pokemon p = jogador.getTime().get(i);
+                Button btn = botoesDeTroca.get(i);
+                btn.setText(p.getNome());
+
+                if (p.isDerrotado()) {
+                    btn.setDisable(true);
+                } else {
+                    btn.setDisable(false);
+                }
+            }
         }
     }
     private void carregarImagem(ImageView imageView, Pokemon pokemon) {
@@ -155,7 +223,7 @@ public class BatalhaController {
                 imageView.setImage(imagem);
             }
         } catch (Exception e){
-            System.err.println("Ocorreu um erro ao tentar carregar a imagem: " + arquivo);
+            System.err.println("Erro ao encontrar a imagem " + arquivo);
             e.printStackTrace();
         }
     }

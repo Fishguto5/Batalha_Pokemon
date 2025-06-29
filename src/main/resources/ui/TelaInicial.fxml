@@ -18,6 +18,6 @@
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
-    <Label text="Batalha de Pókemon" fx:id="titleLabel"/>
+    <Label text="Batalha de Pokémon" fx:id="titleLabel"/>
     <Button text="Iniciar Batalha" onAction="#iniciarBatalha" fx:id="startButton"/>
 </VBox>

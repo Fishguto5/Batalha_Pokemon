@@ -1,27 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BatalhaController">
-    <VBox layoutX="500" layoutY="50" spacing="5">
-        <Label fx:id="labelNomeInimigo" text="Nome Inimigo"/>
-        <ProgressBar fx:id="barVidaInimigo" progress="1.0" prefWidth="200"/>
-        <Label fx:id="labelVidaInimigo" text="100/100"/>
-    </VBox>
-    <ImageView fx:id="imgInimigo" fitHeight="150" fitWidth="150" layoutX="520" layoutY="120" />
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BatalhaController">
 
-    <VBox layoutX="100" layoutY="300" spacing="5">
-        <Label fx:id="labelNomeJogador" text="Nome Jogador"/>
-        <ProgressBar fx:id="barVidaJogador" progress="1.0" prefWidth="200"/>
-        <Label fx:id="labelVidaJogador" text="120/120"/>
-    </VBox>
-    <ImageView fx:id="imgJogador" fitHeight="150" fitWidth="150" layoutX="120" layoutY="370" />
+    <center>
+        <GridPane BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0" />
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <VBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="0">
+                    <children>
+                        <VBox alignment="CENTER_LEFT" prefWidth="250.0" spacing="5.0">
+                            <Label fx:id="labelNomeJogador" text="Nome Jogador" />
+                            <ProgressBar fx:id="barVidaJogador" prefWidth="250.0" progress="1.0" />
+                            <Label fx:id="labelVidaJogador" text="120/120" />
+                        </VBox>
+                        <ImageView fx:id="imgJogador" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+                    </children>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </VBox>
 
-    <VBox alignment="CENTER" layoutX="50.0" layoutY="500.0" spacing="10" prefWidth="700">
-        <TextArea fx:id="logBatalha" editable="false" prefHeight="80" />
-        <Button fx:id="btnAtacar" onAction="#handleAtacar" text="Atacar" prefWidth="150"/>
-    </VBox>
-</AnchorPane>
+                <VBox alignment="CENTER_RIGHT" spacing="10.0" GridPane.columnIndex="1">
+                    <children>
+                        <VBox alignment="CENTER_RIGHT" prefWidth="250.0" spacing="5.0">
+                            <Label fx:id="labelNomeInimigo" text="Nome Inimigo" />
+                            <ProgressBar fx:id="barVidaInimigo" prefWidth="250.0" progress="1.0" />
+                            <Label fx:id="labelVidaInimigo" text="100/100" />
+                        </VBox>
+                        <ImageView fx:id="imgInimigo" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
+                    </children>
+                    <padding>
+                        <Insets right="50.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </GridPane>
+    </center>
 
+    <bottom>
+        <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <TextArea fx:id="logBatalha" editable="false" prefHeight="120.0" wrapText="true" />
+                <HBox alignment="CENTER" spacing="10.0">
+                    <Button fx:id="btnAtacar" onAction="#handleAtacar" text="Atacar" />
+                </HBox>
+                <HBox fx:id="boxBotoesTroca" alignment="CENTER" spacing="10.0">
+                    <Button fx:id="btnTrocar1" onAction="#handleTrocarParaPokemon1" text="Trocar 1" />
+                    <Button fx:id="btnTrocar2" onAction="#handleTrocarParaPokemon2" text="Trocar 2" />
+                    <Button fx:id="btnTrocar3" onAction="#handleTrocarParaPokemon3" text="Trocar 3" />
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+        </VBox>
+    </bottom>
+</BorderPane>

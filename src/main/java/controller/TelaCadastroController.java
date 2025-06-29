@@ -24,7 +24,6 @@ public class TelaCadastroController {
     private void confirmarNome(ActionEvent event) throws IOException {
         String nome = nomeInput.getText();
 
-        // Uma pequena validação para garantir que o nome não está vazio
         if (nome == null || nome.trim().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Nome Inválido");

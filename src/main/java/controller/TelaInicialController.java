@@ -14,7 +14,6 @@ import java.net.URL;
 public class TelaInicialController {
 
     @FXML
-    //Arrumar nome da função pois foi alterado o fluxo das telas
     private void iniciarBatalha(ActionEvent event) throws IOException {
         System.out.println("Botão Iniciar Batalha clicado! Carregando a cena de batalha...");
 
