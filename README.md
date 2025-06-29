@@ -4,9 +4,9 @@ Este projeto é uma simulação de uma batalha de Pokémon, desenvolvido como pa
 
 ### Membros
 * Gustavo Fernandes de Carvalho - RA: 205854
-* XXXXXXXXXXXXXXXXXXXXXXXXX - RA: ZZZZZZ
-* XXXXXXXXXXXXXXXXXXXXXXXXX - RA: ZZZZZZ
-* XXXXXXXXXXXXXXXXXXXXXXXXX - RA: ZZZZZZ
+* Guilherme de Lima Pereira Silva - RA: 195145
+* Felipe Costa Silva - RA: 204706
+* Vitor de Mello Pfeiffer - RA: 281393
 
 ---
 
