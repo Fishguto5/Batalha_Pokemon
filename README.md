@@ -32,7 +32,7 @@ Para compilar e executar este projeto, é necessário ter o seguinte software in
 
 ### Como Executar
 
-1. Execute o projeto usando o script do Maven Wrapper apropriado para o seu sistema operacional.
+1. Execute o projeto usando o script do Maven Wrapper de acordo com o seu sistema operacional.
 
    * **No Windows (usando PowerShell ou CMD):**
 
