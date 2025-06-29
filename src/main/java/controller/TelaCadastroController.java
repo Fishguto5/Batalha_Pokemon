@@ -1,5 +1,6 @@
 package controller;
 
+import exception.NomeInvalido;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,16 +22,11 @@ public class TelaCadastroController {
     private TextField nomeInput;
 
     @FXML
-    private void confirmarNome(ActionEvent event) throws IOException {
+    private void confirmarNome(ActionEvent event) throws IOException, NomeInvalido {
         String nome = nomeInput.getText();
         //Aplicar Exception
         if (nome == null || nome.trim().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Nome Inválido");
-            alert.setHeaderText(null);
-            alert.setContentText("Por favor, digite seu nome!");
-            alert.showAndWait();
-            return;
+            throw new NomeInvalido("O nome do treinador não pode ser vazio");
         }
 
         MainApplication.nome_jogador = nome;
