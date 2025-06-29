@@ -19,6 +19,7 @@ public class Launcher {
     }
 
     private static int test() {
+        System.out.println("Iniciando teste");
         Pokedex pokedex = new Pokedex();
         InputStream inputStream = Pokedex.class.getResourceAsStream("/ListaPokemons.csv");
         try {
@@ -41,6 +42,7 @@ public class Launcher {
             bat.executarTurno(new Acao(TipoAcao.ATACAR), new Acao(TipoAcao.ATACAR));
         }
 
+        System.out.println("Teste concluído");
         return 0;
     }
 }
