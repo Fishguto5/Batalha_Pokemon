@@ -51,8 +51,7 @@ public enum TipoPokemon implements Efetividade {
             }
         }
     },
-    // Passo 3: Para os tipos que ainda não vamos implementar a lógica,
-    // eles ainda precisam de um nome de habilidade. Eles usarão o método padrão.
+
     GELO("Raio de Gelo"),
     LUTADOR("Rajada de Socos"),
     VENENO("Miasma Tóxico"),
@@ -63,11 +62,10 @@ public enum TipoPokemon implements Efetividade {
     PEDRA("Colapso Rochoso"),
     FANTASMA("Vulto Espectral"),
     DRAGAO("Garra do Dragão"),
-    SOMBRIO("Terror Noturno"), // Corrigi para SOMBRIO, que é um tipo mais comum que NOTURNO
+    SOMBRIO("Terror Noturno"),
     METAL("Canhão de Titânio"),
     FADA("Explosão Lunar");
 
-    // --- Esta parte do código que você já tinha continua igual ---
     private final String habilidadePadrao;
 
     private TipoPokemon(String habilidadePadrao) {
@@ -77,13 +75,10 @@ public enum TipoPokemon implements Efetividade {
     public String getHabilidadePadrao() {
         return habilidadePadrao;
     }
-    // --- Fim da parte existente ---
 
 
-    // --- NOVA PARTE: Implementação padrão da interface ---
-    // Este método será usado por GELO, LUTADOR, etc., que não têm um bloco {} com sua própria lógica.
     @Override
     public double getEfetividadeContra(TipoPokemon tipoDefensor) {
-        return 1.0; // Dano normal por padrão
+        return 1.0;
     }
 }

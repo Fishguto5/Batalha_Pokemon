@@ -19,7 +19,7 @@ public class TelaInicialController {
 
         URL fxmlUrl = getClass().getResource("/cadastro/TelaCadastro.fxml");
         if (fxmlUrl == null) {
-            System.err.println("ERRO CRÍTICO: O arquivo 'Batalha.fxml' não foi encontrado.");
+            System.err.println("O arquivo 'Batalha.fxml' não foi encontrado.");
             return;
         }
         Parent batalhaRoot = FXMLLoader.load(fxmlUrl);

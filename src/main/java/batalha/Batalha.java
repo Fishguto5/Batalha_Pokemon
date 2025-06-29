@@ -22,18 +22,6 @@ public class Batalha {
         this.estado = EstadoBatalha.EM_ANDAMENTO;
     }
 
-    public void setTreinador1(Treinador treinador1) {
-        this.treinador1 = treinador1;
-    }
-
-    public void setTreinador2(Treinador treinador2) {
-        this.treinador2 = treinador2;
-    }
-
-    public void setTurno(int turno) {
-        this.turno = turno;
-    }
-
     public EstadoBatalha getEstado() {
         return estado;
     }
@@ -79,8 +67,8 @@ public class Batalha {
         return logDaAcao;
     }
 
-    public List<String> executarAcaoJogador(Acao acaoJogador) {
-        List<String> logDoTurno = new ArrayList<>();
+    public ArrayList<String> executarAcaoJogador(Acao acaoJogador) {
+        ArrayList<String> logDoTurno = new ArrayList<>();
 
         if (acaoJogador.getTipo() == TipoAcao.ATACAR || acaoJogador.getTipo() == TipoAcao.TROCAR) {
             logDoTurno.addAll(processarAcao(treinador1, treinador2, acaoJogador));
@@ -96,19 +84,19 @@ public class Batalha {
         return logDoTurno;
     }
 
-    public List<String> trocarPokemonDerrotado(int indiceNovoPokemon) {
-        List<String> logDaTroca = new ArrayList<>();
-        // Só permite esta ação se o estado for o correto.
+    public ArrayList<String> trocarPokemonDerrotado(int indiceNovoPokemon) {
+        ArrayList<String> logDaTroca = new ArrayList<>();
+        // Só permite esta ação se o estado for o correto
         if (estado == EstadoBatalha.AGUARDANDO_TROCA_JOGADOR) {
             String msgTroca = realizarTroca(treinador1, indiceNovoPokemon);
             logDaTroca.add(msgTroca);
-            estado = EstadoBatalha.EM_ANDAMENTO; // A batalha volta ao normal!
+            estado = EstadoBatalha.EM_ANDAMENTO;
         }
         return logDaTroca;
     }
 
-    public List<String> executarTurno(Acao acaoTreinador1, Acao acaoTreinador2) {
-        List<String> logDoTurno = new ArrayList<>();
+    public ArrayList<String> executarTurno(Acao acaoTreinador1, Acao acaoTreinador2) {
+        ArrayList<String> logDoTurno = new ArrayList<>();
 
 
         Treinador primeiro = treinador1;
@@ -123,7 +111,6 @@ public class Batalha {
             return logDoTurno;
         }
 
-        // --- TURNO DO SEGUNDO JOGADOR (ROBÔ) ---
         logDoTurno.addAll(processarAcao(segundo, primeiro, acaoSegundo));
 
         turno++;

@@ -5,13 +5,6 @@ public class Acao {
     private TipoAcao tipo;
     private int indiceAlvo = -1;
 
-    public void setTipo(TipoAcao tipo) {
-        this.tipo = tipo;
-    }
-
-    public void setIndiceAlvo(int indiceAlvo) {
-        this.indiceAlvo = indiceAlvo;
-    }
 
     public TipoAcao getTipo() { return tipo; }
     public int getIndiceAlvo() { return indiceAlvo; }
