@@ -35,7 +35,6 @@ public class Pokedex {
             Pokemon p = new Pokemon(nome, tipo, vida, ataque, defesa, velocidade);
             pokemons.add(p);
         }
-
         reader.close();
     }
 
@@ -47,6 +46,4 @@ public class Pokedex {
         }
         return null;
     }
-
-
 }
