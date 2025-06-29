@@ -1,0 +1,289 @@
+#+TITLE: Batalha Pokémon — Projeto FInal MC322
+
+Este projeto é uma simulação de uma batalha de Pokémon, desenvolvido como parte da disciplina de Programação Orientada a Objetos (MC322).
+
+* Membros
+- Gustavo Fernandes de Carvalho - RA: 205854
+- Felipe Costa Silva - RA: 204706
+- Guilherme de Lima Pereira Silva - RA: 195145
+- Vítor de Mello Pfeiffer - RA: 281393
+
+* Sobre o Projeto
+O jogo simula uma batalha de Pokémons, na qual você pode batalhar contra um Treinador Robô e testar suas habilidades como Mestre Pokémon.
+
+O projeto foi desenvolvido utilizando: *Java 21.0.7*, *JavaFX* para a interface gráfica, e *Apache Maven* como gerenciador de dependências.
+
+* Orientações para Execução
+** Pré-requisitos
+Para compilar e executar este projeto, é necessário ter instalado o *JDK 21* (Java Development Kit).
+
+** Como Executar
+Execute o projeto usando o Maven de acordo com o seu sistema operacional:
+No /Windows/ (via PowerShell ou CMD):
+#+begin_src powershell
+   .\mvnw.cmd clean javafx:run
+#+end_src
+
+Em sistemas POSIX (Linux/MacOS/BSDs):
+#+begin_src sh
+  ./mvnw clean javafx:run
+#+end_src
+
+* Diagrama de classes
+Esse diagrama descreve todas as classes deste programa, incluindo seus atributos e métodos de forma exaustiva, e como elas se relacionam. Foi elaborada utilizando [[https://plantuml.com/][PlantUML]]; o código utilizado para gerar a imagem pode ser encontrado nesse arquivo (escondido por padrão no GitHub).
+
+#+begin_src plantuml :file uml.png :cmdline -darkmode :exports results
+  @startuml
+  class batalha.Acao {
+          -TipoAcao tipo
+          -int indiceAlvo
+          --get/set--
+          +TipoAcao getTipo()
+          +int getIndiceAlvo()
+          --
+          +Acao(TipoAcao tipo)
+          +Acao(TipoAcao tipo, int indiceAlvo)
+  }
+
+  batalha.Acao *-- batalha.TipoAcao
+
+  class batalha.Batalha {
+          -Treinador treinador1
+          -Treinador treinador2
+          -int turno
+          -EstadoBatalha estado
+          --get/set--
+          +Treinador getTreinador1()
+          +Treinador getTreinador2()
+          +int getTurno()
+          +EstadoBatalha getEstado()
+          +void setEstado(EstadoBatalha estado)
+          --
+          +Batalha(Treinador treinador1, Treinador treinador2)
+          +void iniciarBatalha()
+          +ArrayList<String> executarAcaoJogador(Acao acaoJogador)
+          +ArrayList<String> trocarPokemonDerrotado(int indiceNovoPokemon)
+          +ArrayList<String> executarTurno(Acao acao treinador1, Acao acaoTreinador2)
+          +ArrayList<String> realizarAtaque(Treinador atacante, Treinador defensor)
+          +String realizarTroca(Treinador treinador, int indiceNovoPokemon)
+          -List<String> processarAcao(Treinador atacante, Treinador defensor, Acao acao)
+  }
+
+  batalha.Batalha o-- treinador.Treinador
+  batalha.Batalha *-- batalha.EstadoBatalha
+
+  enum batalha.EstadoBatalha {
+          EM_ANDAMENTO,
+          AGUARDANDO_TROCA_JOGADOR,
+          FIM_DE_JOGO
+  }
+
+  enum batalha.TipoAcao {
+          ATACAR,
+          TROCAR
+  }
+
+  class controller.BatalhaController {
+          -Batalha batalha
+          --FXML--
+          -Label labelNomeInimido
+          -ProgressBar barVidaInimigo
+          -Label labelVidaInimigo
+          -ImageView imgInimigo
+          -Label labelNomeJogador
+          -ProgressBar barVidaJogador
+          -Label labelVidaJogador
+          -ImageView imgJogador
+          -TextArea logBatalha
+          -Button btnAtacat
+          -Button btnTrocar1
+          -Button btnTrocar2
+          -Button btnTrocar3
+          -HBox boxFimDeJogo
+          -Button btnJogarNovamente
+          -Button btnFecharJogo
+          -HBox boxBotoesTroca
+          -VBox boxAcoesBatalha
+          -List<Button> botoesDeTroca
+          --
+          +void initialize()
+          -void handleAtacar()
+          -void handleTrocarParaPokemon1()
+          -void handleTrocarParaPokemon2()
+          -void handleTrocarParaPokemon3()
+          -void jogarNovamente(ActionEvent event)
+          -void fecharJogo(ActionEvent event)
+          -void processarTroca(int indicePokemon)
+          -void processarAcaoDoJogador(Acao acaoJogador)
+          -void ativarOpcoesFimDeJogo()
+          -void gerenciarBotoesDeAcao(boolean desabilitar)
+          -void atualizarUI()
+          -void carregarImagem(ImageView imageView, Pokemon pokemon)
+          -void reiniciarBatalhaLogica()
+          -void adicionarLog(String mensagem)
+  }
+
+  controller.BatalhaController o-- batalha.Batalha
+
+  class controller.TelaCadastroController {
+          -TextField nomeInput
+          --
+          -void confirmarNome(ActionEvent event)
+  }
+
+  class controller.TelaInicialController {
+          -void iniciarBatalha(ActionEvent event)
+  }
+
+  class exception.NomeInvalido extends Exception {
+          +NomeInvalido(String message)
+  }
+
+  exception.NomeInvalido .. controller.TelaCadastroController
+
+  class logs.LogBatalha {
+          {static} -String logRota
+          {static} +void registrar(String mensagem)
+  }
+
+  logs.LogBatalha .. controller.BatalhaController
+
+  interface pokemon.Efetividade {
+          ~double getEfetividadeContra(TipoPokemon tipoDefensor)
+  }
+
+  enum pokemon.EstadoPokemon {
+          VIVO,
+          MORTO
+  }
+
+  class pokemon.Pokedex {
+          {static} -ArrayList<Pokemon> pokemons
+          --get/set--
+          {static} +void setPokemons(ArrayList<Pokemon> pokemons)
+          +ArrayList<Pokemon> getPokemons()
+          --
+          +void carregarPokemons(InputStream inputStream)
+          +Pokemon buscarPokemonPorNome(String nome)
+  }
+
+  pokemon.Pokedex *-- pokemon.Pokemon
+
+  class pokemon.Pokemon {
+          -String nome
+          -TipoPokemon tipo
+          -int vida
+          -int vidaMaxima
+          -int ataque
+          -int defesa
+          -int velocidade
+          -EstadoPokemon estado
+          --get/set--
+          +String getNome()
+          +TipoPokemon getTipo()
+          +int getVida()
+          +int getAtaque()
+          +int getDefesa()
+          +int getVelocidade()
+          +EstadoPokemon getEstado()
+          +int getVidaMaxima()
+          +void setNome(String nome)
+          +void setTipo(TipoPokemon tipo)
+          +void setVida(int vida)
+          +void setAtaque(int ataque)
+          +void setDefesa(int defesa)
+          +void setVelocidade(int velocidade)
+          +void setEstado(EstadoPokemon estado)
+          +void setVidaMaxima(int vidaMaxima)
+          --
+          +Pokemon(String nome, TipoPokemon tipo, int vida, int ataque, int defesa, int velocidade)
+          +Pokemon(Pokemon outro)
+          +void receberDano(int dano)
+          +boolean isDerrotado()
+  }
+
+  pokemon.Pokemon *-- pokemon.TipoPokemon
+  pokemon.Pokemon *-- pokemon.EstadoPokemon
+
+  enum pokemon.TipoPokemon implements pokemon.Efetividade {
+          NORMAL,
+          FOGO,
+          AGUA,
+          PLANTA,
+          ELETRICO,
+          GELO,
+          LUTADOR,
+          VENENO,
+          TERRA,
+          VOADOR,
+          PSIQUICO,
+          INSETO,
+          PEDRA,
+          FANTASMA,
+          DRAGAO,
+          SOMBRIO,
+          METAL,
+          FADA;
+
+          -String habilidadePadrao
+          -TipoPokemon(String habilidadePadrao)
+          +String getHabilidadePadrao()
+  }
+
+  enum treinador.EstadoTreinador {
+          PERDEDOR,
+          NEUTRO
+  }
+
+
+  abstract class treinador.Treinador {
+          -String nome
+          -ArrayList<Pokemon> time
+          -Pokemon pokemonEmCampo
+          -EstadoTreinador estadoTreinador
+          --get/set--
+          +String getNome()
+          +ArrayList<Pokemon> getTime()
+          +Pokemon getPokemonEmCampo()
+          +EstadoTreinador getEstadoTreinador()
+          +void setNome(String nome)
+          +void setTime(ArrayList<Pokemon> time)
+          +void setPokemonEmCampo(Pokemon pokemonEmCampo)
+          +void setEstadoTreinador(EstadoTreinador estadoTreinador)
+          --
+          +Treinador(String nome)
+          {abstract} +void escolherPokemon(Pokedex pokedex)
+          +boolean timeDerrotado(ArrayList<Pokemon> time)
+          +Pokemon proximoPokemonDisponivel()
+  }
+
+  treinador.Treinador o-- pokemon.Pokemon
+  treinador.Treinador *-- treinador.EstadoTreinador
+
+  class treinador.TreinadorHumano extends treinador.Treinador {
+          -Scanner scanner
+          +TreinadorHumano(String nome)
+  }
+
+  class treinador.TreinadorRobo extends treinador.Treinador {
+          -Random random
+          +TreinadorRobo(String nome)
+  }
+
+  class ui.Launcher {
+          {static} +void main(String[] args)
+  }
+
+  class ui.MainApplication extends javafx.application.Application {
+          {static} +String nome_jogador
+          {static} +int altura_tela
+          {static} +int largura_tela
+
+          +void start(Stage stage)
+          {static} +void main(String[] args)
+  }
+  @enduml
+#+end_src
+
+#+RESULTS:
+[[file:uml.png]]
