@@ -12,7 +12,7 @@ Este projeto é uma simulação de uma batalha de Pokémon, desenvolvido como pa
 *Resumo*: esse projeto é um sistema gráfico que simula uma [[https://en.wikipedia.org/wiki/Pok%C3%A9mon_(video_game_series)#Gameplay][batalha de Pokémon]]. O jogador luta contra um oponente aleatório, podendo realizar ataques que tem comportamento variável de acordo com o tipo e atributos do Pokémon atacante e defensor. A batalha ocorre em turnos. Um Pokémon é derrotado quando sua vida chega a zero. O objetivo é derrotar todos os Pokémons do oponente antes que seus próprios Pokémons sejam derrotados.
 O projeto foi desenvolvido utilizando: *Java 21.0.7*, *JavaFX* para a interface gráfica, e *Apache Maven* como gerenciador de dependências.
 
-*Estrutura do projeto
+* Estrutura do projeto
 
 *Resources*: Todos os arquivos que não são compilados (não possuem terminação .java) estão presentes na pasta resources, como é definido pela estrutura do Maven, os arquivos que estão neste diretório são relacionados ao design da interface gráfica ( fxml*, *css* e *imagens*), além de conter o arquivo .csv, que contêm os dados dos pokémons (Nome, Tipo, Vida, Ataque e outros).
 *Java*: Neste diretório estão presente todos os arquivos que possuem a terminação *.java* e serão compilados JVM, seguindo a estrutura do Maven.
