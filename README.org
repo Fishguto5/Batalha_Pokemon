@@ -14,8 +14,7 @@ O projeto foi desenvolvido utilizando: *Java 21.0.7*, *JavaFX* para a interface 
 
 *Estrutura do projeto
 
-Resources*: Todos os arquivos que não são compilados (não possuem terminação .java) estão presentes na pasta resources, como é definido pela estrutura do Maven, os arquivos que estão neste diretório são relacionados ao design da interface gráfica ( fxml*, *css* e *imagens*), além de conter o arquivo .csv, que contêm os dados dos pokémons (Nome, Tipo, Vida, Ataque e outros).
-
+*Resources*: Todos os arquivos que não são compilados (não possuem terminação .java) estão presentes na pasta resources, como é definido pela estrutura do Maven, os arquivos que estão neste diretório são relacionados ao design da interface gráfica ( fxml*, *css* e *imagens*), além de conter o arquivo .csv, que contêm os dados dos pokémons (Nome, Tipo, Vida, Ataque e outros).
 *Java*: Neste diretório estão presente todos os arquivos que possuem a terminação *.java* e serão compilados JVM, seguindo a estrutura do Maven.
 
 * Orientações para Execução
