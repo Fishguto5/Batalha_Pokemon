@@ -13,7 +13,7 @@ Este projeto é uma simulação de uma batalha de Pokémon, desenvolvido como pa
 O projeto foi desenvolvido utilizando: *Java 21.0.7*, *JavaFX* para a interface gráfica, e *Apache Maven* como gerenciador de dependências.
 
 *Estrutura do projeto
-Os dados dos Pokémons estão sendo armazenados em um arquivo .csv, que está na pasta resources, além disso todos arquivos relacionados à interface visual (*.fxml*, *.css* e *iamgens*) estão na mesma pasta, separadas em suas respectivas pastas (batalha, cadastro, LogoPokemon, pokemon_images e ui)
+Os dados dos Pokémons estão sendo armazenados em um arquivo .csv, que está na pasta resources, além disso todos arquivos relacionados à interface visual ( *fxml* , *css* e *imagens*) estão na mesma pasta, separadas em suas respectivas pastas (batalha, cadastro, LogoPokemon, pokemon_images e ui)
 * Orientações para Execução
 ** Pré-requisitos
 Para compilar e executar este projeto, é necessário ter instalado o *JDK 21* (Java Development Kit).
