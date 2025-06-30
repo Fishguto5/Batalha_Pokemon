@@ -10,10 +10,6 @@ public class Pokedex {
 
     private static ArrayList<Pokemon> pokemons = new ArrayList<>();
 
-    public static void setPokemons(ArrayList<Pokemon> pokemons) {
-        Pokedex.pokemons = pokemons;
-    }
-
     public ArrayList<Pokemon> getPokemons() {
         return pokemons;
     }

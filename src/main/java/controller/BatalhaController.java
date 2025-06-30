@@ -54,12 +54,12 @@ public class BatalhaController {
     private List<Button> botoesDeTroca;
 
     @FXML
-    public void initialize() throws IOException {
+    public void initialize() { //Inicializa a batalha
         botoesDeTroca = List.of(btnTrocar1, btnTrocar2, btnTrocar3);
         boxFimDeJogo.setVisible(false);
         boxFimDeJogo.setManaged(false);
         try {
-            reiniciarBatalhaLogica();
+            reiniciarBatalha();
             adicionarLog("A batalha começou!");
             atualizarUI();
             gerenciarBotoesDeAcao(false);
@@ -70,24 +70,28 @@ public class BatalhaController {
     }
 
     @FXML
-    private void handleAtacar() throws IOException {
+    private void handleAtacar() throws IOException { //Função Responsável por atacar o Pokémon Adversário
         processarAcaoDoJogador(new Acao(TipoAcao.ATACAR));
     }
 
     @FXML
-    private void handleTrocarParaPokemon1() throws IOException {
+    private void handleTrocarParaPokemon1() throws IOException { //Responsável pela troca do Pokémon 1
         processarTroca(0);
     }
 
     @FXML
-    private void handleTrocarParaPokemon2() throws IOException {
+    private void handleTrocarParaPokemon2() throws IOException { //Responsável pela troca do Pokémon 2
         processarTroca(1);
     }
 
     @FXML
-    private void handleTrocarParaPokemon3() throws IOException {
+    private void handleTrocarParaPokemon3() throws IOException { //Responsável pela troca do Pokémon 3
         processarTroca(2);
     }
+
+    /*
+        A função jogar novamente desabilita os @botoes presentes no meio da batalha, como o de trocar pokemon e atacar
+     */
 
     @FXML
     private void jogarNovamente(ActionEvent event) throws IOException {
@@ -99,7 +103,7 @@ public class BatalhaController {
         boxAcoesBatalha.setManaged(true);
         try {
             logBatalha.clear();
-            reiniciarBatalhaLogica();
+            reiniciarBatalha();
             adicionarLog("Uma nova batalha começou!");
             atualizarUI();
             gerenciarBotoesDeAcao(false);
@@ -114,7 +118,7 @@ public class BatalhaController {
         Platform.exit();
     }
 
-    private void processarTroca(int indicePokemon) throws IOException {
+    private void processarTroca(int indicePokemon) throws IOException { //relialza a troca de pokemon e atualiza a tela do usuário
         if (batalha.getEstado() == EstadoBatalha.AGUARDANDO_TROCA_JOGADOR) {
             batalha.trocarPokemonDerrotado(indicePokemon).forEach(this::adicionarLog);
             atualizarUI();
@@ -124,7 +128,7 @@ public class BatalhaController {
         }
     }
 
-    private void processarAcaoDoJogador(Acao acaoJogador) throws IOException {
+    private void processarAcaoDoJogador(Acao acaoJogador) {
         gerenciarBotoesDeAcao(true);
         batalha.executarAcaoJogador(acaoJogador).forEach(this::adicionarLog);
         atualizarUI();
@@ -146,7 +150,7 @@ public class BatalhaController {
         btnFecharJogo.setDisable(false);
     }
 
-    private void gerenciarBotoesDeAcao(boolean desabilitar) {
+    private void gerenciarBotoesDeAcao(boolean desabilitar) { //Gerencia os estados dos botões durante as ações do usuário
         btnAtacar.setDisable(desabilitar);
         if (desabilitar) {
             botoesDeTroca.forEach(btn -> btn.setDisable(true));
@@ -158,7 +162,7 @@ public class BatalhaController {
         }
     }
 
-    private void atualizarUI() {
+    private void atualizarUI() { //Atualiza a interface gráfica, seja a Imagem dos pokémons ou barra de vida
         Pokemon pJogador = batalha.getTreinador1().getPokemonEmCampo();
         Pokemon pInimigo = batalha.getTreinador2().getPokemonEmCampo();
 
@@ -189,7 +193,7 @@ public class BatalhaController {
         }
     }
 
-    private void carregarImagem(ImageView imageView, Pokemon pokemon) {
+    private void carregarImagem(ImageView imageView, Pokemon pokemon) { //Carrega a Imagem dos Pokemons
         if (pokemon == null || pokemon.getNome() == null) {
             return;
         }
@@ -210,7 +214,7 @@ public class BatalhaController {
         }
     }
 
-    private void reiniciarBatalhaLogica() throws Exception {
+    private void reiniciarBatalha() throws Exception { // Reinicia a Batalha, trazendo novos pokémons
         Pokedex pokedex = new Pokedex();
         InputStream inputStream = Pokedex.class.getResourceAsStream("/ListaPokemons.csv");
         if (inputStream == null) {
@@ -218,7 +222,7 @@ public class BatalhaController {
         }
         pokedex.carregarPokemons(inputStream);
 
-        List<Pokemon> pokemonsDisponiveis = new ArrayList<>(pokedex.getPokemons());
+        ArrayList<Pokemon> pokemonsDisponiveis = new ArrayList<>(pokedex.getPokemons());
         final int TAMANHO_DO_TIME = 3;
 
         if (pokemonsDisponiveis.size() < TAMANHO_DO_TIME * 2) {
@@ -242,7 +246,7 @@ public class BatalhaController {
         this.batalha.iniciarBatalha();
     }
 
-    private void adicionarLog(String mensagem) {
+    private void adicionarLog(String mensagem) { //Adiciona as mensagens do arquivo RegistroBatalha.txt
         if(mensagem == null) return;
         logBatalha.appendText(mensagem + "\n");
         LogBatalha.registrar(mensagem);

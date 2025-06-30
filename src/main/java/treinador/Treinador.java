@@ -18,6 +18,7 @@ public abstract class Treinador {
         estadoTreinador = EstadoTreinador.NEUTRO;
     }
 
+    //Getters e Setters
     public String getNome() {
         return nome;
     }
@@ -30,9 +31,6 @@ public abstract class Treinador {
         return time;
     }
 
-    public void setTime(ArrayList<Pokemon> time) {
-        this.time = time;
-    }
 
     public Pokemon getPokemonEmCampo() {
         return pokemonEmCampo;
@@ -53,7 +51,7 @@ public abstract class Treinador {
 
     public void escolherPokemon(Pokedex pokedex) {
     }
-
+    //Verifica se o time foi derrotado
     public boolean timeDerrotado(ArrayList<Pokemon> time) {
         int pokeDerrotado = 0;
         for (Pokemon p : time) {

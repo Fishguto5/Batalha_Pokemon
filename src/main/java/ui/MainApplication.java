@@ -13,6 +13,7 @@ public class MainApplication extends Application {
     public static int largura_tela = 720;
     @Override
     public void start(Stage stage) {
+        //Inicia a interface visual
         try {
             URL fxmlUrl = getClass().getResource("/ui/TelaInicial.fxml");
             Parent root = FXMLLoader.load(fxmlUrl);

@@ -1,8 +1,8 @@
 package pokemon;
 
-import java.awt.datatransfer.FlavorListener;
-
 public enum TipoPokemon implements Efetividade {
+
+    //Lista a habilidade Padrão de acordo com cada tipo de Pokémon e a efetivade do ataque contra determinados tipos de pokémons
 
     NORMAL("Impacto Brutal") {
         @Override

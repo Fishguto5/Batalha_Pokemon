@@ -22,9 +22,8 @@ public class TelaCadastroController {
     private TextField nomeInput;
 
     @FXML
-    private void confirmarNome(ActionEvent event) throws IOException, NomeInvalido {
+    private void confirmarNome(ActionEvent event) throws IOException, NomeInvalido { //Função usada para capturar nome do usuário na interface gráfica
         String nome = nomeInput.getText();
-        //Aplicar Exception
         if (nome == null || nome.trim().isEmpty()) {
             throw new NomeInvalido("O nome do treinador não pode ser vazio");
         }
@@ -33,6 +32,7 @@ public class TelaCadastroController {
         System.out.println("Nome do treinador definido como: " + MainApplication.nome_jogador);
 
         Parent rotaBatalha = FXMLLoader.load(getClass().getResource("/batalha/Batalha.fxml"));
+        //Cria a Cena da Botalha (próxima tela)
         Scene sceneBatalha = new Scene(rotaBatalha);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(sceneBatalha);

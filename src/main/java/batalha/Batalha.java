@@ -22,22 +22,20 @@ public class Batalha {
         this.turno = 1;
         this.estado = EstadoBatalha.EM_ANDAMENTO;
     }
-
+    //Getters
     public EstadoBatalha getEstado() {
         return estado;
     }
-
-    public void setEstado(EstadoBatalha estado) {
-        this.estado = estado;
-    }
-
+    public Treinador getTreinador1() { return treinador1; }
+    public Treinador getTreinador2() { return treinador2; }
+    //Responsável por iniciar a lógica da batalha
     public void iniciarBatalha() {
         treinador1.setPokemonEmCampo(treinador1.getTime().get(0));
         treinador2.setPokemonEmCampo(treinador2.getTime().get(0));
     }
 
-    private List<String> processarAcao(Treinador atacante, Treinador defensor, Acao acao) {
-        List<String> logDaAcao = new ArrayList<>();
+    private ArrayList<String> processarAcao(Treinador atacante, Treinador defensor, Acao acao) {
+        ArrayList<String> logDaAcao = new ArrayList<>();
 
         if (acao.getTipo() == TipoAcao.ATACAR) {
             logDaAcao.addAll(realizarAtaque(atacante, defensor));
@@ -54,11 +52,11 @@ public class Batalha {
                 logDaAcao.add(defensor.getNome() + " não tem mais Pokémon!");
                 logDaAcao.add(atacante.getNome() + " venceu a batalha!");
             } else {
-                // Se o Pokémon derrotado é do JOGADOR
+                // Se o Pokémon derrotado é do Usuário
                 if (defensor instanceof TreinadorHumano) {
-                    this.estado = EstadoBatalha.AGUARDANDO_TROCA_JOGADOR; // >>> PONTO CRÍTICO <<<
+                    this.estado = EstadoBatalha.AGUARDANDO_TROCA_JOGADOR;
                     logDaAcao.add("Você precisa escolher seu próximo Pokémon!");
-                } else { // Se o derrotado é do ROBÔ
+                } else { // Se o derrotado é do Robô
                     Pokemon proximo = defensor.proximoPokemonDisponivel();
                     defensor.setPokemonEmCampo(proximo);
                     logDaAcao.add(defensor.getNome() + " enviou " + proximo.getNome() + "!");
@@ -119,8 +117,6 @@ public class Batalha {
     }
 
 
-
-
     public ArrayList<String> realizarAtaque(Treinador atacante, Treinador defensor) {
         ArrayList<String> logAtaque = new ArrayList<>();
         Pokemon pAtacante = atacante.getPokemonEmCampo();
@@ -142,7 +138,7 @@ public class Batalha {
 
         String nomeHabilidade = tipoDoAtaque.getHabilidadePadrao();
         logAtaque.add(pAtacante.getNome() + " usou " + nomeHabilidade + "!");
-
+        //Lógica da efetividade dos poderes do Pokémon
         if (multiplicador > 1.0) logAtaque.add("Ataque do " + atacante.getPokemonEmCampo().getNome() + " é super efetivo!");
         else if (multiplicador < 1.0 && multiplicador > 0.0) logAtaque.add(" Ataque do " + atacante.getPokemonEmCampo().getNome() + " não é muito efetivo");
         else if (multiplicador == 0.0) logAtaque.add("Ataque " + atacante.getPokemonEmCampo().getNome() + " não foi efetivo");
@@ -155,6 +151,7 @@ public class Batalha {
     public String realizarTroca(Treinador treinador, int indiceNovoPokemon) {
         if (indiceNovoPokemon >= 0 && indiceNovoPokemon < treinador.getTime().size()) {
             Pokemon novoPokemon = treinador.getTime().get(indiceNovoPokemon);
+            //Verifica se é possíevl realizar a troca do Pokémon
             if (!novoPokemon.isDerrotado() && novoPokemon != treinador.getPokemonEmCampo()) {
                 treinador.setPokemonEmCampo(novoPokemon);
                 return treinador.getNome() + " enviou " + novoPokemon.getNome() + "!";
@@ -163,8 +160,5 @@ public class Batalha {
         return "Troca inválida.";
     }
 
-    public Treinador getTreinador1() { return treinador1; }
-    public Treinador getTreinador2() { return treinador2; }
-    public int getTurno() { return turno; }
 }
 

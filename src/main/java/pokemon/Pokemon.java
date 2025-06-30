@@ -12,7 +12,7 @@ public class Pokemon  {
     private int velocidade;
     private EstadoPokemon estado;
 
-
+    //Getters e Setters, não foram adicionadas os Getters e Setters que não foram necessários na implementação do projeto
     public String getNome() {
         return nome;
     }
@@ -25,9 +25,6 @@ public class Pokemon  {
         return tipo;
     }
 
-    public void setTipo(TipoPokemon tipo) {
-        this.tipo = tipo;
-    }
 
     public int getVida() {
         return vida;
@@ -41,29 +38,12 @@ public class Pokemon  {
         return ataque;
     }
 
-    public void setAtaque(int ataque) {
-        this.ataque = ataque;
-    }
+
 
     public int getDefesa() {
         return defesa;
     }
 
-    public void setDefesa(int defesa) {
-        this.defesa = defesa;
-    }
-
-    public int getVelocidade() {
-        return velocidade;
-    }
-
-    public void setVelocidade(int velocidade) {
-        this.velocidade = velocidade;
-    }
-
-    public EstadoPokemon getEstado() {
-        return estado;
-    }
 
     public void setEstado(EstadoPokemon estado) {
         this.estado = estado;
@@ -97,10 +77,6 @@ public class Pokemon  {
         this.defesa = outro.defesa;
         this.velocidade = outro.velocidade;
         this.vidaMaxima = vida;
-    }
-
-    public void receberDano(int dano) {
-        vida -= dano;
     }
 
     public boolean isDerrotado() {

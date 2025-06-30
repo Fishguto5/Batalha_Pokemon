@@ -15,9 +15,9 @@ public class TelaInicialController {
 
     @FXML
     private void iniciarBatalha(ActionEvent event) throws IOException {
-        System.out.println("Botão Iniciar Batalha clicado! Carregando a cena de batalha...");
-
+        //Pega a rota da tela de Cadastro
         Parent rotaCadastro = FXMLLoader.load(getClass().getResource("/cadastro/TelaCadastro.fxml"));
+        //Cria a Cena da tela de Cadastro
         Scene sceneCadastro = new Scene(rotaCadastro);
         sceneCadastro.getStylesheets().add(getClass().getResource("/ui/style.css").toExternalForm());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

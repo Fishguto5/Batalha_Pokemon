@@ -8,6 +8,7 @@ public class LogBatalha {
     private static final String logRota = "RegistroBatalha.txt";
     public static void  registrar(String mensagem) {
         try (PrintWriter out = new PrintWriter(new FileWriter(logRota, true))) {
+            //Imprime do arquivo txt a mensagem
             out.println(mensagem);
         } catch (IOException e){
             System.err.println("Erro ao registrar log da batalha");
